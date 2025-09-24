@@ -9,7 +9,10 @@ import org.json.JSONObject;
 
 public class App {
 
+    private final HttpClient httpClient = HttpClient.newbuilder().version(HttpClient.Version.HTTP_2).build();
     public static void main(String[] args) {
+        
+        
         
     }
 
