@@ -16,7 +16,27 @@ public class App {
         
         // Instanciamos comando
         TypeCommand typecommand = new TypeCommand();
-        
-    }
 
+
+        JCommander jc = JCommander.newBuilder()
+            .addCommand("type", typecommand)
+            .build()
+            .parse(args);
+        
+
+        switch(typecommand.getType()){
+            case "playing":
+                break;
+            
+            case "popular":
+                break;
+
+            case "top":
+                break;
+
+            case "upcoming":
+                break;
+
+        }
+    }
 }
