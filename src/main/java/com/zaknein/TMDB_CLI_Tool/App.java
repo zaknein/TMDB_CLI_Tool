@@ -7,13 +7,15 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.beust.jcommander.JCommander;
-
+import com.zaknein.srcTMDB_CLI_Tool.comandos.TypeCommand;
 
 public class App {
     private final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
+    
     public static void main(String[] args) {
         
-        
+        // Instanciamos comando
+        TypeCommand typecommand = new TypeCommand();
         
     }
 
