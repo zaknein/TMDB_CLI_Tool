@@ -4,10 +4,6 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 
-@Parameters(
-    commandNames = "type",
-    commandDescription = "select the type"
-)
 public class TypeCommand {
     
     @Parameter(
@@ -20,5 +16,9 @@ public class TypeCommand {
 
     public String getType(){
         return type;
+    }
+
+    public void setType(String type){
+        this.type = type;
     }
 }
