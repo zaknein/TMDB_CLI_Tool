@@ -4,8 +4,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-// import org.json.JSONArray;
-// import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import com.beust.jcommander.JCommander;
 import com.zaknein.TMDB_CLI_Tool.comandos.TypeCommand;
 
@@ -63,7 +63,37 @@ public class App {
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
+            System.out.println(response.statusCode());
+
+            if(response.statusCode() == 200){
+                String responseBody = response.body();
+
+                JSONObject json = new JSONObject(responseBody);
+                JSONArray events = json.getJSONArray("results");
+
+                if(events.length() == 0){
+                    System.out.println("No movies where found");
+                }else{
+                    System.out.println("Movies");
+
+                    for (int i = 0; i < 10; i++) {
+
+                        JSONObject event = events.getJSONObject(i);
+
+                        String date = event.getString("release_date");
+                        String title = event.getString("title");
+                        String overview = event.getString("overview");
+
+                        System.out.println("    ---------------------------------------");
+                        System.out.println("Movie title " + title);
+                        System.out.println("Release date " + date);
+                        System.out.println("Overview:");
+                        System.out.println(overview);
+                    }
+                }
+            }else{
+                System.out.println("Request failed. Status Code: " + response.statusCode());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
