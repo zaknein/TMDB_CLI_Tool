@@ -1,1 +1,3 @@
+com\zaknein\TMDB_CLI_Tool\App.class
 com\zaknein\TMDB_CLI_Tool\comandos\TypeCommand.class
+com\zaknein\TMDB_CLI_Tool\dominio\Movies.class

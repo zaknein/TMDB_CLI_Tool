@@ -7,23 +7,29 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.beust.jcommander.JCommander;
+
 import com.zaknein.TMDB_CLI_Tool.comandos.TypeCommand;
 import com.zaknein.TMDB_CLI_Tool.dominio.Movies;
+import com.zaknein.TMDB_CLI_Tool.dominio.MovieResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class App {
     private final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
 
+    //Instanciar objectmapper
+    private static ObjectMapper objectMapper = new ObjectMapper();
     public static void main(String[] args) {
 
         // Instanciamos 
         TypeCommand typecommand = new TypeCommand();
-        Movies movie = new Movies();
+        
 
 
         JCommander jc = JCommander.newBuilder()
                 .addObject(typecommand)
                 .build();
-        
+
         try {
             jc.parse(args);
             String type = "";
@@ -67,33 +73,50 @@ public class App {
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
 
+            //Instanciamos clase
+            // Movies movie = new Movies();
+
             if(response.statusCode() == 200){
                 String responseBody = response.body();
 
                 JSONObject json = new JSONObject(responseBody);
                 JSONArray events = json.getJSONArray("results");
 
-                if(events.length() == 0){
-                    System.out.println("No movies where found");
-                }else{
-                    System.out.println("Movies");
+                MovieResponse movieResponse  = objectMapper.readValue(responseBody, MovieResponse.class);
 
-                    for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < Math.min(10, movieResponse.getResults().size()); i++) {
+                Movies movie = movieResponse.getResults().get(i);
 
-                        JSONObject event = events.getJSONObject(i);
-
-                        String date = event.getString("release_date");
-                        String title = event.getString("title");
-                        String overview = event.getString("overview");
-
-
-                        // System.out.println("    ---------------------------------------");
-                        // System.out.println("Movie title " + title);
-                        // System.out.println("Release date " + date);
-                        // System.out.println("Overview:");
-                        // System.out.println(overview);
-                    }
+                System.out.println("---------------------------------------");
+                System.out.println("Movie title: " + movie.getTitle());
+                System.out.println("Release date: " + movie.getDate());
+                System.out.println("Overview: " + movie.getOverview());
                 }
+
+                // if(events.length() == 0){
+                //     System.out.println("No movies where found");
+                // }else{
+                //     System.out.println("Movies");
+
+                //     for (int i = 0; i < 10; i++) {
+
+                //         JSONObject event = events.getJSONObject(i);
+
+                //         String date = event.getString("release_date");
+                //         String title = event.getString("title");
+                //         String overview = event.getString("overview");
+
+                //         movie.setDate(date);
+                //         movie.setTitle(title);
+                //         movie.setOverview(overview);
+
+                //         System.out.println("    ---------------------------------------");
+                //         System.out.println("Movie title " + movie.getTitle());
+                //         System.out.println("Release date " + movie.getDate());
+                //         System.out.println("Overview:");
+                //         System.out.println(movie.getOverview());
+                //     }
+                // }
             }else{
                 System.out.println("Request failed. Status Code: " + response.statusCode());
             }

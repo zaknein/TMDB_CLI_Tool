@@ -1,5 +1,7 @@
 package com.zaknein.TMDB_CLI_Tool.dominio;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true) 
 public class Movies{
     String date;
     String title;

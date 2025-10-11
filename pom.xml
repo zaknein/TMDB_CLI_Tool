@@ -30,5 +30,17 @@
             <version>1.82</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <!-- Plugin para ejecutar la aplicación -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <mainClass>com.zaknein.TMDB_CLI_Tool.App</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>    
 </project>
