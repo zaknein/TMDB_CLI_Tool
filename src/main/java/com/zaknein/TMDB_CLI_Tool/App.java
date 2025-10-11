@@ -8,20 +8,22 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.beust.jcommander.JCommander;
 import com.zaknein.TMDB_CLI_Tool.comandos.TypeCommand;
+import com.zaknein.TMDB_CLI_Tool.dominio.Movies;
 
 public class App {
     private final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
 
     public static void main(String[] args) {
 
-        // Instanciamos comando
+        // Instanciamos 
         TypeCommand typecommand = new TypeCommand();
+        Movies movie = new Movies();
 
 
         JCommander jc = JCommander.newBuilder()
                 .addObject(typecommand)
                 .build();
-
+        
         try {
             jc.parse(args);
             String type = "";
@@ -84,11 +86,12 @@ public class App {
                         String title = event.getString("title");
                         String overview = event.getString("overview");
 
-                        System.out.println("    ---------------------------------------");
-                        System.out.println("Movie title " + title);
-                        System.out.println("Release date " + date);
-                        System.out.println("Overview:");
-                        System.out.println(overview);
+
+                        // System.out.println("    ---------------------------------------");
+                        // System.out.println("Movie title " + title);
+                        // System.out.println("Release date " + date);
+                        // System.out.println("Overview:");
+                        // System.out.println(overview);
                     }
                 }
             }else{

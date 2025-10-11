@@ -1,4 +1,4 @@
-
+package com.zaknein.TMDB_CLI_Tool.dominio;
 
 public class Movies{
     String date;
