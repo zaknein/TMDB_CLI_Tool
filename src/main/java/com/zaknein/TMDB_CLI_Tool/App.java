@@ -4,8 +4,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import com.beust.jcommander.JCommander;
 
 import com.zaknein.TMDB_CLI_Tool.comandos.TypeCommand;
@@ -73,14 +71,10 @@ public class App {
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
 
-            //Instanciamos clase
-            // Movies movie = new Movies();
 
             if(response.statusCode() == 200){
                 String responseBody = response.body();
 
-                JSONObject json = new JSONObject(responseBody);
-                JSONArray events = json.getJSONArray("results");
 
                 MovieResponse movieResponse  = objectMapper.readValue(responseBody, MovieResponse.class);
 
@@ -93,30 +87,6 @@ public class App {
                 System.out.println("Overview: " + movie.getOverview());
                 }
 
-                // if(events.length() == 0){
-                //     System.out.println("No movies where found");
-                // }else{
-                //     System.out.println("Movies");
-
-                //     for (int i = 0; i < 10; i++) {
-
-                //         JSONObject event = events.getJSONObject(i);
-
-                //         String date = event.getString("release_date");
-                //         String title = event.getString("title");
-                //         String overview = event.getString("overview");
-
-                //         movie.setDate(date);
-                //         movie.setTitle(title);
-                //         movie.setOverview(overview);
-
-                //         System.out.println("    ---------------------------------------");
-                //         System.out.println("Movie title " + movie.getTitle());
-                //         System.out.println("Release date " + movie.getDate());
-                //         System.out.println("Overview:");
-                //         System.out.println(movie.getOverview());
-                //     }
-                // }
             }else{
                 System.out.println("Request failed. Status Code: " + response.statusCode());
             }
