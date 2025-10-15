@@ -6,6 +6,9 @@ import com.beust.jcommander.JCommander;
 import com.zaknein.TMDB_CLI_Tool.comandos.TypeCommand;
 import com.zaknein.TMDB_CLI_Tool.logica.Api;
 
+import com.zaknein.TMDB_CLI_Tool.dominio.Movies;
+import com.zaknein.TMDB_CLI_Tool.dominio.MovieResponse;
+
 
 public class App {
     private final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
@@ -14,6 +17,7 @@ public class App {
 
         // Instanciamos 
         TypeCommand typecommand = new TypeCommand();
+        MovieResponse movieResponse = new MovieResponse;
         Api Api = new Api();
 
 
@@ -42,7 +46,16 @@ public class App {
                     return;
             }
             System.out.println(type);
-            Api.sendGet(type);
+            MovieResponse movieResponse = Api.sendGet(type);
+
+            for (int i = 0; i < Math.min(10, movieResponse.getResults().size()); i++) {
+            Movies movie = movieResponse.getResults().get(i);
+
+            System.out.println("---------------------------------------");
+            System.out.println("Movie title: " + movie.getTitle());
+            System.out.println("Release date: " + movie.getDate());
+            System.out.println("Overview: " + movie.getOverview());
+            }
 
         } catch (Exception e) {
             System.err.println("Error para procesar el tipo");

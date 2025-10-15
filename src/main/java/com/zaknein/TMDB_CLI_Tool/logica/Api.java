@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Api {
     
-    public static void sendGet(String type) throws Exception {
+    public static MovieResponse sendGet(String type) throws Exception {
             
         //Instanciar objectmapper
         final ObjectMapper objectMapper = new ObjectMapper();  
@@ -36,14 +36,15 @@ public class Api {
 
                 MovieResponse movieResponse  = objectMapper.readValue(responseBody, MovieResponse.class);
 
-                for (int i = 0; i < Math.min(10, movieResponse.getResults().size()); i++) {
-                Movies movie = movieResponse.getResults().get(i);
+                return movieResponse;
+                // for (int i = 0; i < Math.min(10, movieResponse.getResults().size()); i++) {
+                // Movies movie = movieResponse.getResults().get(i);
 
-                System.out.println("---------------------------------------");
-                System.out.println("Movie title: " + movie.getTitle());
-                System.out.println("Release date: " + movie.getDate());
-                System.out.println("Overview: " + movie.getOverview());
-                }
+                // System.out.println("---------------------------------------");
+                // System.out.println("Movie title: " + movie.getTitle());
+                // System.out.println("Release date: " + movie.getDate());
+                // System.out.println("Overview: " + movie.getOverview());
+                // }
 
             }else{
                 System.out.println("Request failed. Status Code: " + response.statusCode());
