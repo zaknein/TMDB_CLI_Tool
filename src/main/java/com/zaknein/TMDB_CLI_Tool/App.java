@@ -17,7 +17,6 @@ public class App {
 
         // Instanciamos 
         TypeCommand typecommand = new TypeCommand();
-        MovieResponse movieResponse = new MovieResponse;
         Api Api = new Api();
 
 

@@ -36,7 +36,7 @@ public class Api {
 
                 MovieResponse movieResponse  = objectMapper.readValue(responseBody, MovieResponse.class);
 
-                return movieResponse;
+                return  movieResponse;
                 // for (int i = 0; i < Math.min(10, movieResponse.getResults().size()); i++) {
                 // Movies movie = movieResponse.getResults().get(i);
 
@@ -52,6 +52,7 @@ public class Api {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return null;
     }
+    
 }
