@@ -11,7 +11,7 @@ import com.zaknein.TMDB_CLI_Tool.dominio.MovieResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class SendToApi {
+public class Api {
     
     public static void sendGet(String type) throws Exception {
             

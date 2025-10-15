@@ -4,7 +4,7 @@ import java.net.http.HttpClient;
 import com.beust.jcommander.JCommander;
 
 import com.zaknein.TMDB_CLI_Tool.comandos.TypeCommand;
-import com.zaknein.TMDB_CLI_Tool.logica.SendToApi;
+import com.zaknein.TMDB_CLI_Tool.logica.Api;
 
 
 public class App {
@@ -14,7 +14,7 @@ public class App {
 
         // Instanciamos 
         TypeCommand typecommand = new TypeCommand();
-        SendToApi sendToApi = new SendToApi();
+        Api Api = new Api();
 
 
         JCommander jc = JCommander.newBuilder()
@@ -42,7 +42,7 @@ public class App {
                     return;
             }
             System.out.println(type);
-            sendToApi.sendGet(type);
+            Api.sendGet(type);
 
         } catch (Exception e) {
             System.err.println("Error para procesar el tipo");
