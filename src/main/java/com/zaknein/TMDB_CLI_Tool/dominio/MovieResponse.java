@@ -7,10 +7,9 @@ public class MovieResponse {
     private List<Movies> results;
     private int total_pages;
     private int total_results;
-    private Dates dates;  // 👈 Nuevo campo
+    private Dates dates;
 
-    // Getters y Setters...
-
+    
     public Dates getDates() {
          return dates;
     }
